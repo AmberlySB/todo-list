@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <title>Vite + TS</title>
+  </head>
+  <body>
+    <script type="module" src="/src/main.ts"></script>
+
+    <header class="bg-slate-600 text-white flex justify-between p-5">
+      <span class="material-symbols-rounded cursor-pointer">menu</span>
+      <span id="add-todo" class="material-symbols-rounded cursor-pointer"
+        >add</span
+      >
+    </header>
+
+    <div id="container" class="flex min-h-screen">
+      <main class="grid grid-cols-[1fr,_4fr] min-w-full">
+        <div id="sidebar" class="text-white bg-slate-700 flex flex-col p-5">
+          <p class="flex items-center mb-3">
+            <span class="material-symbols-rounded mr-2">inbox</span>Inbox
+          </p>
+          <p class="mb-3 flex items-center">
+            <span class="material-symbols-rounded mr-2">today</span>Today
+          </p>
+          <p class="mb-20 flex items-center">
+            <span class="material-symbols-rounded mr-2">calendar_month</span
+            >Upcoming
+          </p>
+
+          <h1 class="text-xl flex items-center justify-between font-bold">
+            Projects
+            <span class="material-symbols-rounded text-2xl">add</span>
+          </h1>
+        </div>
+        <div id="content" class="bg-slate-800 text-white"></div>
+      </main>
+    </div>
+
+    <dialog id="dialog" class="bg-slate-600 text-white max-w-fit rounded-xl">
+      <form>
+        <div class="flex flex-col border-b-2 border-b-slate-500 p-5 mx-4">
+          <label for="name"></label>
+          <input
+            id="name"
+            type="text"
+            name="name"
+            placeholder="Task name"
+            class="mb-3 pl-1 placeholder:text-black"
+          />
+          <label for="description"></label>
+          <input
+            id="description"
+            type="text"
+            name="description"
+            placeholder="Description"
+            class="text-black mb-3 pl-1 placeholder:text-black"
+          />
+          <label for="date"></label>
+          <input
+            id="date"
+            type="date"
+            name="date"
+            class="text-black mb-3 pl-1 placeholder:text-black"
+          />
+          <label for="priority"></label>
+          <div class="flex items-center mb-5">
+            <span
+              id="dot"
+              class="bg-slate-300 flex-none h-4 w-4 rounded-3xl inline-block mr-3"
+            ></span>
+            <select id="priority" class="text-black w-full">
+              <option value="">Priority</option>
+              <option value="1">Priority 1</option>
+              <option value="2">Priority 2</option>
+              <option value="3">Priority 3</option>
+            </select>
+          </div>
+        </div>
+        <div class="p-5 flex justify-evenly">
+          <button
+            id="cancel"
+            type="button"
+            class="bg-slate-400 rounded-sm px-2"
+          >
+            Cancel
+          </button>
+          <button
+            id="submit"
+            type="button"
+            class="bg-violet-700 rounded-sm px-2"
+          >
+            Add task
+          </button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>
