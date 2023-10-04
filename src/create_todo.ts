@@ -1,14 +1,22 @@
-import { addTask, name, description, dueDate, priority } from "./dom";
+import {
+  addTask,
+  name,
+  description,
+  dueDate,
+  priority,
+  loadTodos,
+  loadNewTodo,
+} from "./dom";
 
 export class Todo {
   name: string;
-  description: string;
+  description?: string;
   dueDate?: string;
   priority?: number;
 
   constructor(
     name: string,
-    description: string,
+    description?: string,
     dueDate?: string,
     priority?: number,
   ) {
@@ -34,6 +42,12 @@ export const newTask = () => {
       Number(priorityValue),
     );
     allTodos.push(newTodo);
+    loadNewTodo(allTodos);
     console.table(allTodos);
   });
 };
+
+// TODO: build function for editing todos
+// build function for deleting todos
+// ??? build function for unloading todos ???
+// refactor todo class to include a property to represent the project it is associated with - set default to inbox
