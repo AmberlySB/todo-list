@@ -25,6 +25,10 @@ export const closeDialog = () => {
   });
 };
 
+export const getId = (id: string) => {
+  return document.getElementById(id);
+};
+
 export const loadTodos = (arr: Todo[]) => {
   const todoList = document.getElementById("todo-list") as HTMLDivElement;
   arr.forEach((todo, index: number) => {
