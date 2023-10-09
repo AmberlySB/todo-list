@@ -10,7 +10,7 @@
     <title>Vite + TS</title>
   </head>
   <body>
-    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="/src/main.js"></script>
 
     <header class="bg-neutral-700 text-white flex justify-between py-2 px-5">
       <span class="material-symbols-rounded cursor-pointer">menu</span>
@@ -46,35 +46,22 @@
           id="content"
           class="bg-neutral-900 text-white flex justify-center col-span-2 md:col-span-1"
         >
-          <div id="todo-list" class="w-[min(55rem,_93%)] p-10">
+          <div id="" class="w-[min(55rem,_93%)] p-10">
             <h1 class="text-2xl mb-20">Inbox</h1>
-            <!-- <div -->
-            <!--   id="todo-1" -->
-            <!--   class="border-b grid grid-cols-[auto,_1fr] grid-rows-2 gap-x-2 gap-y-0.5 py-3" -->
-            <!-- > -->
-            <!--   <span -->
-            <!--     id="todo-1-priority" -->
-            <!--     class="rounded-3xl border-2 border-slate-400 h-4 w-4 inline-block place-self-center" -->
-            <!--   ></span> -->
-            <!--   <p id="todo-1-name" class="">name here</p> -->
-            <!--   <span id="todo-1-description-spacer" class=""></span> -->
-            <!--   <p id="todo-1-description" class="">description here</p> -->
-            <!--   <span id="todo-1-date-spacer" class=""></span> -->
-            <!--   <p id="todo-1-date" class="text-xs">date here</p> -->
-            <!-- </div> -->
+            <div id="todoList"></div>
           </div>
         </div>
       </main>
     </div>
 
     <dialog id="dialog" class="bg-slate-800 text-white max-w-fit rounded-xl">
-      <form>
+      <form id="form">
         <div class="flex flex-col border-b-2 border-b-slate-500 p-5 mx-4">
-          <label for="name"></label>
+          <label for="taskName"></label>
           <input
-            id="name"
+            id="taskName"
             type="text"
-            name="name"
+            name="taskName"
             placeholder="Task name"
             class="text-black mb-3 pl-1 placeholder:text-black"
             required
@@ -87,11 +74,11 @@
             placeholder="Description"
             class="text-black mb-3 pl-1 placeholder:text-black"
           />
-          <label for="date"></label>
+          <label for="dueDate"></label>
           <input
-            id="date"
+            id="dueDate"
             type="date"
-            name="date"
+            name="dueDate"
             class="text-black mb-3 pl-1 placeholder:text-black"
           />
           <label for="priority"></label>
@@ -125,7 +112,7 @@
           </button>
           <button
             id="add-task"
-            type="button"
+            type="submit"
             class="bg-violet-700 rounded-md px-2"
           >
             Add task
@@ -133,5 +120,25 @@
         </div>
       </form>
     </dialog>
+
+    <template id="todoTemplate">
+      <div
+        class="border-b border-slate-400 grid grid-cols-[auto,_1fr] grid-rows-[auto] gap-x-2 gap-y-0.5 py-3"
+      >
+        <span
+          class="priority rounded-3xl border-2 h-4 w-4 inline-block place-self-center"
+        ></span>
+        <div class="flex justify-between">
+          <p class="taskName">name here</p>
+          <span class="edit cursor-pointer material-symbols-rounded">
+            edit_note
+          </span>
+        </div>
+        <span class="descriptionSpacer"></span>
+        <p class="description text-xs">description here</p>
+        <span class="dueDateSpacer"></span>
+        <p class="dueDate text-xs">date here</p>
+      </div>
+    </template>
   </body>
 </html>
