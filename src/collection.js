@@ -32,6 +32,11 @@ export const Collection = (title = "default Collection", _id = uuid()) => {
         ? Object.freeze({ _id: thing._id, data: updateFunc(thing.data) })
         : thing,
     );
+    const thing = stuff.find((thing) => thing._id === id);
+    console.log(thing);
+    observers.update?.forEach((observerFunc) =>
+      observerFunc(thing, { _id, title, collection: [...stuff] }),
+    );
     console.table("updated stuff: ", stuff);
     return findById(id);
   };

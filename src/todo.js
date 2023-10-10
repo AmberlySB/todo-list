@@ -1,6 +1,7 @@
 import { inbox } from "./main";
+import { elementId } from "./dom";
 
-export class Todo {
+class Todo {
   taskName;
   description;
   dueDate;
@@ -31,17 +32,17 @@ export function newTask(event) {
 }
 
 export function editTask(event) {
-  console.log(event.target.parentElement.parentElement.id);
-  inbox.update(event.target.parentElement.parentElement.id, (el) => ({
+  event.preventDefault();
+  const editTaskName = this.editTaskName.value;
+  const editDescription = this.editDescription.value;
+  const editDueDate = this.editDueDate.value;
+  const editPriority = this.editPriority.value;
+  console.log(event.target);
+  inbox.update(elementId, (el) => ({
     ...el,
-    priority: 2,
+    taskName: editTaskName,
+    description: editDescription,
+    dueDate: editDueDate,
+    priority: Number(editPriority),
   }));
 }
-
-// TODO: build function for editing todos
-// build function for deleting todos
-// ??? build function for unloading todos ???
-// create form validation
-// look into date-fns
-// clear form after submission and close dialog on submission
-// function to open/close sidebar

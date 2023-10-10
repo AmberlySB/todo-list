@@ -1,5 +1,11 @@
 import "./style.css";
-import { loadNewTodo, closeDialog, loadProjects } from "./dom";
+import {
+  loadNewTodo,
+  closeDialog,
+  closeEditDialog,
+  editTodo,
+  loadProjects,
+} from "./dom";
 import { Collection } from "./collection";
 
 loadProjects();
@@ -16,3 +22,12 @@ export const inbox = Collection("inbox");
 // let newTodo2 = inbox.add(newTodo);
 inbox.subscribe("add", loadNewTodo);
 inbox.subscribe("add", closeDialog);
+inbox.subscribe("update", closeEditDialog);
+inbox.subscribe("update", editTodo);
+
+// TODO: build function for deleting todos
+// look into date-fns
+// clear form after submission
+// function to open/close sidebar
+// give functionality to sidebar links
+// build functionality for multiple project lists

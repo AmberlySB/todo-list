@@ -121,6 +121,76 @@
       </form>
     </dialog>
 
+    <dialog
+      id="editDialog"
+      class="bg-slate-800 text-white max-w-fit rounded-xl"
+    >
+      <form id="editForm">
+        <div class="flex flex-col border-b-2 border-b-slate-500 p-5 mx-4">
+          <label for="editTaskName"></label>
+          <input
+            id="editTaskName"
+            type="text"
+            name="editTaskName"
+            placeholder="Task name"
+            class="text-black mb-3 pl-1 placeholder:text-black"
+            required
+          />
+          <label for="editDescription"></label>
+          <input
+            id="editDescription"
+            type="text"
+            name="editDescription"
+            placeholder="Description"
+            class="text-black mb-3 pl-1 placeholder:text-black"
+          />
+          <label for="editDueDate"></label>
+          <input
+            id="editDueDate"
+            type="date"
+            name="editDueDate"
+            class="text-black mb-3 pl-1 placeholder:text-black"
+          />
+          <label for="editPriority"></label>
+          <div class="flex items-center mb-5">
+            <span
+              id="editDot"
+              class="bg-slate-300 flex-none h-4 w-4 rounded-3xl inline-block mr-3"
+            ></span>
+            <select id="editPriority" class="text-black w-full">
+              <option value="">Priority</option>
+              <option value="1">Priority 1</option>
+              <option value="2">Priority 2</option>
+              <option value="3">Priority 3</option>
+            </select>
+          </div>
+          <label for="editProject"></label>
+          <select
+            name="editProject"
+            id="editProject"
+            class="text-black"
+            required
+          ></select>
+        </div>
+        <div class="p-5 flex justify-evenly">
+          <button
+            id="editCancel"
+            type="button"
+            class="bg-slate-400 rounded-md px-2"
+          >
+            Cancel
+          </button>
+          <button
+            id="editTask"
+            type="submit"
+            class="bg-violet-700 rounded-md px-2"
+          >
+            Edit task
+          </button>
+        </div>
+      </form>
+    </dialog>
+
     <template id="todoTemplate">
       <div
         class="border-b border-slate-400 grid grid-cols-[auto,_1fr] grid-rows-[auto] gap-x-2 gap-y-0.5 py-3"
