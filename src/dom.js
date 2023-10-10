@@ -1,4 +1,4 @@
-import { newTask, editTask } from "./todo";
+import { newTask, editTask, deleteTask } from "./todo";
 
 const addTodo = document.getElementById("add-todo");
 const dialog = document.getElementById("dialog");
@@ -27,7 +27,7 @@ export const closeDialog = () => {
 cancel.addEventListener("click", closeDialog);
 
 const openEditDialog = (event) => {
-  elementId = event.target.parentElement.parentElement.id;
+  elementId = event.target.parentElement.parentElement.parentElement.id;
   console.log(elementId);
   editDialog.showModal();
 };
@@ -60,6 +60,7 @@ const createTodoElement = ({ _id, data }) => {
   console.log(todoElement);
   todoElement.id = _id;
   todoElement.querySelector(".edit").addEventListener("click", openEditDialog);
+  todoElement.querySelector(".delete").addEventListener("click", deleteTask);
   todoElement.querySelector(".taskName").textContent = data.taskName;
 
   if (data.description === "") {

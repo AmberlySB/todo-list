@@ -46,3 +46,8 @@ export function editTask(event) {
     priority: Number(editPriority),
   }));
 }
+
+export const deleteTask = (event) => {
+  const taskId = event.target.parentElement.parentElement.parentElement.id;
+  inbox.remove(taskId);
+};

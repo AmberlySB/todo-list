@@ -15,8 +15,9 @@ export const Collection = (title = "default Collection", _id = uuid()) => {
   };
 
   const remove = (id) => {
+    console.log("before remove: ", stuff);
     stuff = stuff.filter((thing) => thing._id != id);
-    console.table(stuff);
+    console.log("after remove: ", stuff);
   };
 
   const findById = (id) => stuff.find((thing) => thing._id === id);
@@ -32,10 +33,8 @@ export const Collection = (title = "default Collection", _id = uuid()) => {
         ? Object.freeze({ _id: thing._id, data: updateFunc(thing.data) })
         : thing,
     );
-    const thing = stuff.find((thing) => thing._id === id);
-    console.log(thing);
     observers.update?.forEach((observerFunc) =>
-      observerFunc(thing, { _id, title, collection: [...stuff] }),
+      observerFunc(findById(id), { _id, title, collection: [...stuff] }),
     );
     console.table("updated stuff: ", stuff);
     return findById(id);
