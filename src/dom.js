@@ -1,4 +1,4 @@
-import { newTask, editTask, deleteTask } from "./todo";
+import { newTask, editTask, deleteTask, deleteId } from "./todo";
 
 const addTodo = document.getElementById("add-todo");
 const dialog = document.getElementById("dialog");
@@ -14,7 +14,7 @@ const todoTemplate =
 const editDialog = document.getElementById("editDialog");
 
 const projects = ["Inbox"];
-export let elementId;
+export let editId;
 
 const openDialog = () => {
   dialog.showModal();
@@ -27,8 +27,8 @@ export const closeDialog = () => {
 cancel.addEventListener("click", closeDialog);
 
 const openEditDialog = (event) => {
-  elementId = event.target.parentElement.parentElement.parentElement.id;
-  console.log(elementId);
+  editId = event.target.parentElement.parentElement.parentElement.id;
+  console.log(editId);
   editDialog.showModal();
 };
 
@@ -95,8 +95,8 @@ export const loadNewTodo = (_, { collection }) => {
   todoList.replaceChildren(...collection.map(createTodoElement));
 };
 
-export const editTodo = ({ data }) => {
-  const todoElement = document.getElementById(elementId);
+export const editTodoElement = ({ data }) => {
+  const todoElement = document.getElementById(editId);
   const taskName = todoElement.querySelector(".taskName");
   const descriptionSpacer = todoElement.querySelector(".descriptionSpacer");
   const description = todoElement.querySelector(".description");
@@ -159,4 +159,8 @@ export const editTodo = ({ data }) => {
     );
     priority.classList.add("border-slate-400");
   }
+};
+
+export const deleteTodo = () => {
+  todoList.removeChild(document.getElementById(deleteId));
 };

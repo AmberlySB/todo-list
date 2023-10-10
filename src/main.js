@@ -3,8 +3,9 @@ import {
   loadNewTodo,
   closeDialog,
   closeEditDialog,
-  editTodo,
+  editTodoElement,
   loadProjects,
+  deleteTodo,
 } from "./dom";
 import { Collection } from "./collection";
 
@@ -23,7 +24,8 @@ export const inbox = Collection("inbox");
 inbox.subscribe("add", loadNewTodo);
 inbox.subscribe("add", closeDialog);
 inbox.subscribe("update", closeEditDialog);
-inbox.subscribe("update", editTodo);
+inbox.subscribe("update", editTodoElement);
+inbox.subscribe("remove", deleteTodo);
 
 // TODO: build function for deleting todos
 // look into date-fns

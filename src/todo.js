@@ -1,5 +1,7 @@
 import { inbox } from "./main";
-import { elementId } from "./dom";
+import { editId } from "./dom";
+
+export let deleteId;
 
 class Todo {
   taskName;
@@ -38,7 +40,7 @@ export function editTask(event) {
   const editDueDate = this.editDueDate.value;
   const editPriority = this.editPriority.value;
   console.log(event.target);
-  inbox.update(elementId, (el) => ({
+  inbox.update(editId, (el) => ({
     ...el,
     taskName: editTaskName,
     description: editDescription,
@@ -48,6 +50,6 @@ export function editTask(event) {
 }
 
 export const deleteTask = (event) => {
-  const taskId = event.target.parentElement.parentElement.parentElement.id;
-  inbox.remove(taskId);
+  deleteId = event.target.parentElement.parentElement.parentElement.id;
+  inbox.remove(deleteId);
 };
