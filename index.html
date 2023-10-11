@@ -9,21 +9,23 @@
     />
     <title>Vite + TS</title>
   </head>
-  <body>
+  <body class="bg-neutral-900">
     <script type="module" src="/src/main.js"></script>
 
-    <header class="bg-neutral-700 text-white flex justify-between py-2 px-5">
-      <span class="material-symbols-rounded cursor-pointer">menu</span>
-      <span id="add-todo" class="material-symbols-rounded cursor-pointer"
-        >add</span
-      >
-    </header>
+    <div id="container" class="min-h-full">
+      <header class="bg-neutral-700 text-white flex justify-between py-2 px-5">
+        <span id="menu" class="material-symbols-rounded cursor-pointer"
+          >menu</span
+        >
+        <span id="add-todo" class="material-symbols-rounded cursor-pointer"
+          >add</span
+        >
+      </header>
 
-    <div id="container" class="flex min-h-screen">
-      <main class="grid grid-cols-[19rem,_1fr] min-w-full">
+      <main class="flex min-w-full">
         <div
-          id="sidebar"
-          class="text-white bg-neutral-800 hidden md:flex-col p-5 md:flex"
+          id="sideBar"
+          class="text-white bg-neutral-800 fixed h-full -translate-x-full w-full transition transform duration-500 ease-in-out z-10 md:flex-col p-5 md:flex md:translate-x-0 md:w-[19rem]"
         >
           <p class="flex items-center mb-3">
             <span class="material-symbols-rounded mr-2">inbox</span>Inbox
@@ -44,9 +46,9 @@
 
         <div
           id="content"
-          class="bg-neutral-900 text-white flex justify-center col-span-2 md:col-span-1"
+          class="bg-neutral-900 text-white flex justify-center w-full md:w-[64%] md:translate-x-80 md:transition-all md:duration-500 md:ease-in-out lg:w-3/4 xl:w-4/5"
         >
-          <div id="" class="w-[min(55rem,_93%)] p-10">
+          <div id="" class="w-[min(55rem,_93%)] py-20 px-10">
             <h1 class="text-2xl mb-20">Inbox</h1>
             <div id="todoList"></div>
           </div>

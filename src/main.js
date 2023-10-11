@@ -18,11 +18,10 @@ inbox.subscribe("update", closeEditDialog);
 inbox.subscribe("update", editTodoElement);
 inbox.subscribe("remove", deleteTodo);
 
-// TODO: function to open/close sidebar
+// TODO: build functionality for multiple project lists
 // look into date-fns
 // clear form after submission
 // give functionality to sidebar links
-// build functionality for multiple project lists
 // figure out local storage
 
 // <-| Here for reference to be deleted at later time |->

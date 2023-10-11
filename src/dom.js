@@ -12,9 +12,58 @@ const todoList = document.getElementById("todoList");
 const todoTemplate =
   document.getElementById("todoTemplate").content.firstElementChild;
 const editDialog = document.getElementById("editDialog");
+const menu = document.getElementById("menu");
+const sideBar = document.getElementById("sideBar");
+const content = document.getElementById("content");
 
 const projects = ["Inbox"];
 export let editId;
+
+menu.addEventListener("click", () => {
+  if (window.innerWidth >= 1280) {
+    if (!sideBar.classList.contains("md:-translate-x-full")) {
+      sideBar.classList.add("md:-translate-x-full");
+      content.classList.add("md:translate-x-1");
+      content.classList.remove("md:w-[64%]");
+      content.classList.remove("lg:w-3/4");
+      content.classList.remove("xl:w-4/5");
+    } else {
+      sideBar.classList.remove("md:-translate-x-full");
+      content.classList.remove("md:translate-x-1");
+      content.classList.add("md:w-[64%]");
+      content.classList.add("lg:w-3/4");
+      content.classList.add("xl:w-4/5");
+    }
+  } else if (window.innerWidth >= 1024) {
+    if (!sideBar.classList.contains("md:-translate-x-full")) {
+      sideBar.classList.add("md:-translate-x-full");
+      content.classList.add("md:translate-x-1");
+      content.classList.remove("md:w-[64%]");
+      content.classList.remove("lg:w-3/4");
+    } else {
+      sideBar.classList.remove("md:-translate-x-full");
+      content.classList.remove("md:translate-x-1");
+      content.classList.add("md:w-[64%]");
+      content.classList.add("lg:w-3/4");
+    }
+  } else if (window.innerWidth >= 768) {
+    if (!sideBar.classList.contains("md:-translate-x-full")) {
+      sideBar.classList.add("md:-translate-x-full");
+      content.classList.add("md:translate-x-1");
+      content.classList.remove("md:w-[64%]");
+    } else {
+      sideBar.classList.remove("md:-translate-x-full");
+      content.classList.remove("md:translate-x-1");
+      content.classList.add("md:w-[64%]");
+    }
+  } else {
+    if (!sideBar.classList.contains("translate-x-0")) {
+      sideBar.classList.add("translate-x-0");
+    } else {
+      sideBar.classList.remove("translate-x-0");
+    }
+  }
+});
 
 const openDialog = () => {
   dialog.showModal();
