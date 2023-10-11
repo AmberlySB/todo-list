@@ -53,3 +53,8 @@ export const deleteTask = (event) => {
   deleteId = event.target.parentElement.parentElement.parentElement.id;
   inbox.remove(deleteId);
 };
+
+export const completeTask = (event) => {
+  deleteId = event.target.parentElement.id;
+  inbox.remove(deleteId);
+};

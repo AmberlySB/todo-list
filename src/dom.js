@@ -1,4 +1,4 @@
-import { newTask, editTask, deleteTask, deleteId } from "./todo";
+import { newTask, editTask, deleteTask, deleteId, completeTask } from "./todo";
 
 const addTodo = document.getElementById("add-todo");
 const dialog = document.getElementById("dialog");
@@ -59,6 +59,9 @@ const createTodoElement = ({ _id, data }) => {
   const todoElement = todoTemplate.cloneNode(true);
   console.log(todoElement);
   todoElement.id = _id;
+  todoElement
+    .querySelector(".priority")
+    .addEventListener("click", completeTask);
   todoElement.querySelector(".edit").addEventListener("click", openEditDialog);
   todoElement.querySelector(".delete").addEventListener("click", deleteTask);
   todoElement.querySelector(".taskName").textContent = data.taskName;
