@@ -2,7 +2,6 @@ import { Collection } from "./collection";
 import { loadNewTodo, projectFormValidator } from "./dom";
 
 export const projectTitles = ["Inbox"];
-export let activeProject = "Inbox";
 
 export const projects = Collection("Projects");
 

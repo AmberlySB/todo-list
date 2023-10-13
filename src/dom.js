@@ -1,5 +1,5 @@
 import { newTask, editTask, deleteTask, deleteId, completeTask } from "./todo";
-import { projectTitles, addNewProject, activeProject } from "./projects";
+import { projectTitles, addNewProject } from "./projects";
 
 const addTodo = document.getElementById("add-todo");
 const dialog = document.getElementById("dialog");
@@ -187,9 +187,7 @@ const createTodoElement = ({ _id, data }) => {
 };
 
 export const loadNewTodo = (_, { collection }) => {
-  if (title.textContent === activeProject) {
-    todoList.replaceChildren(...collection.map(createTodoElement));
-  }
+  todoList.replaceChildren(...collection.map(createTodoElement));
 };
 
 export const editTodoElement = ({ data }) => {
