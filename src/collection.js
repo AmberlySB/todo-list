@@ -10,14 +10,14 @@ export const Collection = (title = "default Collection", _id = uuid()) => {
     observers.add?.forEach((observerFunc) =>
       observerFunc(thing, { _id, title, collection: [...stuff] }),
     );
-    console.table(stuff);
+    console.table("add stuff: ", stuff);
     return thing;
   };
 
   const remove = (id) => {
-    console.log("before remove: ", stuff);
+    console.table("before remove: ", stuff);
     stuff = stuff.filter((thing) => thing._id != id);
-    console.log("after remove: ", stuff);
+    console.table("after remove: ", stuff);
     const thing = findById(id);
     observers.remove?.forEach((observerFunc) =>
       observerFunc(thing, { _id, title, collection: [...stuff] }),

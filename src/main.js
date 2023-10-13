@@ -1,17 +1,24 @@
 import "./style.css";
 import {
-  loadNewTodo,
   closeDialog,
   closeEditDialog,
-  editTodoElement,
-  loadProjects,
+  closeProjectDialog,
   deleteTodo,
+  editTodoElement,
+  loadAllMenuProjects,
+  loadNewMenuProject,
+  loadNewProject,
+  loadNewTodo,
 } from "./dom";
-import { Collection } from "./collection";
+import { projects, inbox } from "./projects";
 
-loadProjects();
+loadAllMenuProjects();
 
-export const inbox = Collection("inbox");
+projects.subscribe("add", loadNewMenuProject);
+projects.subscribe("add", closeProjectDialog);
+projects.subscribe("add", loadNewProject);
+// projects.subscribe("add", subscribeProjects);
+
 inbox.subscribe("add", loadNewTodo);
 inbox.subscribe("add", closeDialog);
 inbox.subscribe("update", closeEditDialog);

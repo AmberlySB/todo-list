@@ -40,16 +40,21 @@
 
           <h1 class="text-xl flex items-center justify-between font-bold">
             Projects
-            <span class="material-symbols-rounded text-2xl">add</span>
+            <span
+              id="addProject"
+              class="material-symbols-rounded cursor-pointer text-2xl"
+              >add</span
+            >
           </h1>
+          <div id="projectWrapper"></div>
         </div>
 
         <div
           id="content"
           class="bg-neutral-900 text-white flex justify-center w-full md:w-[64%] md:translate-x-80 md:transition-all md:duration-500 md:ease-in-out lg:w-3/4 xl:w-4/5"
         >
-          <div id="" class="w-[min(55rem,_93%)] py-20 px-10">
-            <h1 class="text-2xl mb-20">Inbox</h1>
+          <div class="w-[min(55rem,_93%)] py-20 px-10">
+            <h1 id="title" class="text-2xl mb-20">Inbox</h1>
             <div id="todoList"></div>
           </div>
         </div>
@@ -188,6 +193,45 @@
             class="bg-violet-700 rounded-md px-2"
           >
             Edit task
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog
+      id="projectDialog"
+      class="bg-slate-800 text-white max-w-fit rounded-xl"
+    >
+      <form id="projectForm">
+        <div class="flex flex-col border-b-2 border-b-slate-500 p-5 mx-4">
+          <label for="projectName"></label>
+          <input
+            id="projectName"
+            type="text"
+            name="projectName"
+            placeholder="Project name"
+            class="text-black mb-3 pl-1 placeholder:text-black"
+            required
+          />
+          <p id="projectError" class="text-red-500"></p>
+        </div>
+
+        <div class="p-5 flex justify-evenly">
+          <label for="projectCancelBtn"></label>
+          <button
+            id="projectCancelBtn"
+            type="button"
+            class="bg-slate-400 rounded-md px-2"
+          >
+            Cancel
+          </button>
+          <label for="projectAddBtn"></label>
+          <button
+            id="projectAddBtn"
+            type="submit"
+            class="bg-violet-700 rounded-md px-2"
+          >
+            Add Project
           </button>
         </div>
       </form>

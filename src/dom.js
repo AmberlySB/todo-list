@@ -1,11 +1,12 @@
 import { newTask, editTask, deleteTask, deleteId, completeTask } from "./todo";
+import { projectTitles, addNewProject, activeProject } from "./projects";
 
 const addTodo = document.getElementById("add-todo");
 const dialog = document.getElementById("dialog");
 const cancel = document.getElementById("cancel");
 const editCancel = document.getElementById("editCancel");
-const form = document.getElementById("form");
-const editForm = document.getElementById("editForm");
+const addTaskForm = document.getElementById("form");
+const editTaskForm = document.getElementById("editForm");
 const project = document.getElementById("project");
 const editProject = document.getElementById("editProject");
 const todoList = document.getElementById("todoList");
@@ -15,21 +16,28 @@ const editDialog = document.getElementById("editDialog");
 const menu = document.getElementById("menu");
 const sideBar = document.getElementById("sideBar");
 const content = document.getElementById("content");
+const projectForm = document.getElementById("projectForm");
+const projectDialog = document.getElementById("projectDialog");
+const addProject = document.getElementById("addProject");
+const projectCancelBtn = document.getElementById("projectCancelBtn");
+const projectWrapper = document.getElementById("projectWrapper");
+export const title = document.getElementById("title");
 
-const projects = ["Inbox"];
 export let editId;
 
 menu.addEventListener("click", () => {
   if (window.innerWidth >= 1280) {
     if (!sideBar.classList.contains("md:-translate-x-full")) {
       sideBar.classList.add("md:-translate-x-full");
-      content.classList.add("md:translate-x-1");
+      sideBar.classList.remove("md:translate-x-0");
+      content.classList.remove("md:translate-x-80");
       content.classList.remove("md:w-[64%]");
       content.classList.remove("lg:w-3/4");
       content.classList.remove("xl:w-4/5");
     } else {
       sideBar.classList.remove("md:-translate-x-full");
-      content.classList.remove("md:translate-x-1");
+      sideBar.classList.add("md:translate-x-0");
+      content.classList.add("md:translate-x-80");
       content.classList.add("md:w-[64%]");
       content.classList.add("lg:w-3/4");
       content.classList.add("xl:w-4/5");
@@ -37,23 +45,27 @@ menu.addEventListener("click", () => {
   } else if (window.innerWidth >= 1024) {
     if (!sideBar.classList.contains("md:-translate-x-full")) {
       sideBar.classList.add("md:-translate-x-full");
-      content.classList.add("md:translate-x-1");
+      sideBar.classList.remove("md:translate-x-0");
+      content.classList.remove("md:translate-x-80");
       content.classList.remove("md:w-[64%]");
       content.classList.remove("lg:w-3/4");
     } else {
       sideBar.classList.remove("md:-translate-x-full");
-      content.classList.remove("md:translate-x-1");
+      sideBar.classList.add("md:translate-x-0");
+      content.classList.add("md:translate-x-80");
       content.classList.add("md:w-[64%]");
       content.classList.add("lg:w-3/4");
     }
   } else if (window.innerWidth >= 768) {
     if (!sideBar.classList.contains("md:-translate-x-full")) {
       sideBar.classList.add("md:-translate-x-full");
-      content.classList.add("md:translate-x-1");
+      sideBar.classList.remove("md:translate-x-0");
+      content.classList.remove("md:translate-x-80");
       content.classList.remove("md:w-[64%]");
     } else {
       sideBar.classList.remove("md:-translate-x-full");
-      content.classList.remove("md:translate-x-1");
+      sideBar.classList.add("md:translate-x-0");
+      content.classList.add("md:translate-x-80");
       content.classList.add("md:w-[64%]");
     }
   } else {
@@ -65,14 +77,10 @@ menu.addEventListener("click", () => {
   }
 });
 
-const openDialog = () => {
-  dialog.showModal();
-};
+const openDialog = () => dialog.showModal();
 addTodo.addEventListener("click", openDialog);
 
-export const closeDialog = () => {
-  dialog.close();
-};
+export const closeDialog = () => dialog.close();
 cancel.addEventListener("click", closeDialog);
 
 const openEditDialog = (event) => {
@@ -81,27 +89,62 @@ const openEditDialog = (event) => {
   editDialog.showModal();
 };
 
-export const closeEditDialog = () => {
-  editDialog.close();
-};
+export const closeEditDialog = () => editDialog.close();
 editCancel.addEventListener("click", closeEditDialog);
 
-form.addEventListener("submit", newTask);
-editForm.addEventListener("submit", editTask);
+const openProjectDialog = () => projectDialog.showModal();
+addProject.addEventListener("click", openProjectDialog);
 
-export const loadProjects = () => {
-  projects.forEach((proj) => {
+export const closeProjectDialog = () => projectDialog.close();
+projectCancelBtn.addEventListener("click", closeProjectDialog);
+
+addTaskForm.addEventListener("submit", newTask);
+editTaskForm.addEventListener("submit", editTask);
+projectForm.addEventListener("submit", addNewProject);
+
+export function projectFormValidator() {
+  const projectError = document.getElementById("projectError");
+  if (projectTitles.includes(this.projectName.value)) {
+    projectError.textContent = "This Project Already Exists!";
+    return "error";
+  } else {
+    projectError.textContent = "";
+  }
+}
+
+export const loadNewMenuProject = () => {
+  const option = document.createElement("option");
+  option.value = projectTitles[projectTitles.length - 1];
+  option.textContent = projectTitles[projectTitles.length - 1];
+  project.appendChild(option);
+};
+
+export const loadAllMenuProjects = () => {
+  projectTitles.forEach((proj) => {
     const option = document.createElement("option");
     option.value = proj;
     option.textContent = proj;
     project.appendChild(option);
   });
-  projects.forEach((proj) => {
+  projectTitles.forEach((proj) => {
     const option = document.createElement("option");
     option.value = proj;
     option.textContent = proj;
     editProject.appendChild(option);
   });
+};
+
+const createProjectElement = ({ _id, data }) => {
+  const div = document.createElement("div");
+  div.id = _id;
+  div.textContent = data.title;
+  return div;
+};
+
+export const loadNewProject = (_, { collection }) => {
+  projectWrapper.replaceChildren(
+    ...collection.slice(1).map(createProjectElement),
+  );
 };
 
 const createTodoElement = ({ _id, data }) => {
@@ -144,7 +187,9 @@ const createTodoElement = ({ _id, data }) => {
 };
 
 export const loadNewTodo = (_, { collection }) => {
-  todoList.replaceChildren(...collection.map(createTodoElement));
+  if (title.textContent === activeProject) {
+    todoList.replaceChildren(...collection.map(createTodoElement));
+  }
 };
 
 export const editTodoElement = ({ data }) => {

@@ -1,4 +1,4 @@
-import { inbox } from "./main";
+import { projects, inbox, projectTitles, projectReferences } from "./projects";
 import { editId } from "./dom";
 
 export let deleteId;
@@ -23,6 +23,7 @@ export function newTask(event) {
   const descriptionValue = this.description.value;
   const dueDateValue = this.dueDate.value;
   const priorityValue = this.priority.value;
+  const projectValue = this.project.value;
 
   const newTodo = new Todo(
     taskName,
@@ -30,7 +31,9 @@ export function newTask(event) {
     dueDateValue,
     Number(priorityValue),
   );
-  inbox.add(newTodo);
+  if (projectTitles.includes(projectValue)) {
+    projectReferences[projectTitles.indexOf(projectValue)].add(newTodo);
+  }
 }
 
 export function editTask(event) {
