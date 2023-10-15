@@ -69,6 +69,7 @@ export const Collection = (title = "default Collection", _id = uuid()) => {
     },
     add,
     remove,
+    findById,
     find,
     findAll,
     update,

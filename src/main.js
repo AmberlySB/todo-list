@@ -3,29 +3,31 @@ import {
   closeDialog,
   closeEditDialog,
   closeProjectDialog,
-  deleteTodo,
+  deleteProjectElement,
+  deleteTodoElement,
   editTodoElement,
   loadAllMenuProjects,
   loadNewMenuProject,
   loadNewProject,
   loadNewTodo,
 } from "./dom";
-import { projects, inbox } from "./projects";
+import { projects, inbox, subscribeProjects } from "./projects";
 
 loadAllMenuProjects();
 
 projects.subscribe("add", loadNewMenuProject);
 projects.subscribe("add", closeProjectDialog);
 projects.subscribe("add", loadNewProject);
-// projects.subscribe("add", subscribeProjects);
+projects.subscribe("add", subscribeProjects);
+projects.subscribe("remove", deleteProjectElement);
 
 inbox.subscribe("add", loadNewTodo);
 inbox.subscribe("add", closeDialog);
 inbox.subscribe("update", closeEditDialog);
 inbox.subscribe("update", editTodoElement);
-inbox.subscribe("remove", deleteTodo);
+inbox.subscribe("remove", deleteTodoElement);
 
-// TODO: build functionality for multiple project lists
+// TODO: fix the delete project function such that when the project is deleted it's entry in projectTitles array is also removed
 // look into date-fns
 // clear form after submission
 // give functionality to sidebar links

@@ -1,5 +1,5 @@
-import { projects, inbox, projectTitles, projectReferences } from "./projects";
-import { editId } from "./dom";
+import { projectTitles, projectReferences } from "./projects";
+import { activeProject, editId } from "./dom";
 
 export let deleteId;
 
@@ -43,21 +43,30 @@ export function editTask(event) {
   const editDueDate = this.editDueDate.value;
   const editPriority = this.editPriority.value;
   console.log(event.target);
-  inbox.update(editId, (el) => ({
-    ...el,
-    taskName: editTaskName,
-    description: editDescription,
-    dueDate: editDueDate,
-    priority: Number(editPriority),
-  }));
+  if (projectTitles.includes(activeProject)) {
+    projectReferences[projectTitles.indexOf(activeProject)].update(
+      editId,
+      (el) => ({
+        ...el,
+        taskName: editTaskName,
+        description: editDescription,
+        dueDate: editDueDate,
+        priority: Number(editPriority),
+      }),
+    );
+  }
 }
 
 export const deleteTask = (event) => {
   deleteId = event.target.parentElement.parentElement.parentElement.id;
-  inbox.remove(deleteId);
+  if (projectTitles.includes(activeProject)) {
+    projectReferences[projectTitles.indexOf(activeProject)].remove(deleteId);
+  }
 };
 
 export const completeTask = (event) => {
   deleteId = event.target.parentElement.id;
-  inbox.remove(deleteId);
+  if (projectTitles.includes(activeProject)) {
+    projectReferences[projectTitles.indexOf(activeProject)].remove(deleteId);
+  }
 };

@@ -1,5 +1,12 @@
 import { newTask, editTask, deleteTask, deleteId, completeTask } from "./todo";
-import { projectTitles, addNewProject } from "./projects";
+import {
+  projectTitles,
+  addNewProject,
+  swapSubs,
+  projects,
+  deleteProject,
+  projectDeleteId,
+} from "./projects";
 
 const addTodo = document.getElementById("add-todo");
 const dialog = document.getElementById("dialog");
@@ -8,7 +15,6 @@ const editCancel = document.getElementById("editCancel");
 const addTaskForm = document.getElementById("form");
 const editTaskForm = document.getElementById("editForm");
 const project = document.getElementById("project");
-const editProject = document.getElementById("editProject");
 const todoList = document.getElementById("todoList");
 const todoTemplate =
   document.getElementById("todoTemplate").content.firstElementChild;
@@ -21,9 +27,13 @@ const projectDialog = document.getElementById("projectDialog");
 const addProject = document.getElementById("addProject");
 const projectCancelBtn = document.getElementById("projectCancelBtn");
 const projectWrapper = document.getElementById("projectWrapper");
-export const title = document.getElementById("title");
+const title = document.getElementById("title");
+const inboxLink = document.getElementById(".inboxLink");
+const inboxDiv = document.querySelector(".inboxDiv");
 
 export let editId;
+export let activeProject = "Inbox";
+let previousProject;
 
 menu.addEventListener("click", () => {
   if (window.innerWidth >= 1280) {
@@ -126,25 +136,33 @@ export const loadAllMenuProjects = () => {
     option.textContent = proj;
     project.appendChild(option);
   });
-  projectTitles.forEach((proj) => {
-    const option = document.createElement("option");
-    option.value = proj;
-    option.textContent = proj;
-    editProject.appendChild(option);
-  });
 };
 
 const createProjectElement = ({ _id, data }) => {
-  const div = document.createElement("div");
-  div.id = _id;
-  div.textContent = data.title;
-  return div;
+  const projectElement = document.createElement("div");
+  projectElement.classList.add("flex", "justify-between");
+  projectElement.id = _id;
+  const para = document.createElement("p");
+  para.addEventListener("click", changeContent);
+  para.classList.add("cursor-pointer");
+  para.textContent = data.title;
+  projectElement.appendChild(para);
+  const span = document.createElement("span");
+  span.addEventListener("click", deleteProject);
+  span.classList.add("cursor-pointer", "material-symbols-rounded");
+  span.textContent = "delete";
+  projectElement.appendChild(span);
+  return projectElement;
 };
 
 export const loadNewProject = (_, { collection }) => {
   projectWrapper.replaceChildren(
     ...collection.slice(1).map(createProjectElement),
   );
+};
+
+export const deleteProjectElement = () => {
+  projectWrapper.removeChild(document.getElementById(projectDeleteId));
 };
 
 const createTodoElement = ({ _id, data }) => {
@@ -256,6 +274,22 @@ export const editTodoElement = ({ data }) => {
   }
 };
 
-export const deleteTodo = () => {
+export const deleteTodoElement = () => {
   todoList.removeChild(document.getElementById(deleteId));
 };
+
+const inboxClone = projects.find((project) =>
+  project.title.startsWith("Inbox"),
+);
+inboxDiv.id = inboxClone[0]._id;
+inboxDiv.addEventListener("click", changeContent);
+
+function changeContent(event) {
+  const projectId = event.target.closest("div").id;
+  previousProject = title.textContent;
+  activeProject = event.target.textContent;
+  title.textContent = event.target.textContent;
+  const thisProject = projects.findById(projectId);
+  swapSubs(previousProject, activeProject);
+  loadNewTodo(projectId, { collection: thisProject.data.findAll() });
+}
