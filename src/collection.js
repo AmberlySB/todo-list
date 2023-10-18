@@ -16,9 +16,9 @@ export const Collection = (title = "default Collection", _id = uuid()) => {
 
   const remove = (id) => {
     console.table("before remove: ", stuff);
+    const thing = findById(id);
     stuff = stuff.filter((thing) => thing._id != id);
     console.table("after remove: ", stuff);
-    const thing = findById(id);
     observers.remove?.forEach((observerFunc) =>
       observerFunc(thing, { _id, title, collection: [...stuff] }),
     );

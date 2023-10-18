@@ -167,7 +167,6 @@ export const deleteProjectElement = () => {
 
 const createTodoElement = ({ _id, data }) => {
   const todoElement = todoTemplate.cloneNode(true);
-  console.log(todoElement);
   todoElement.id = _id;
   todoElement
     .querySelector(".priority")

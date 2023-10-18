@@ -7,6 +7,7 @@ import {
   loadNewTodo,
   projectFormValidator,
 } from "./dom";
+import { addToLocalStorage } from "./local_storage";
 
 export let projectTitles = ["Inbox"];
 export let projectDeleteId;
@@ -71,6 +72,7 @@ export const swapSubs = (previous, active) => {
 export const subscribeProjects = () => {
   projectReferences.slice(1).forEach((project) => {
     project.subscribe("add", closeDialog);
+    project.subscribe("add", addToLocalStorage);
     project.subscribe("update", closeEditDialog);
   });
 };

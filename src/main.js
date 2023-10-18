@@ -12,25 +12,39 @@ import {
   loadNewTodo,
 } from "./dom";
 import { projects, inbox, subscribeProjects } from "./projects";
+import {
+  addToLocalStorage,
+  consumeLocalStorage,
+  removeFromLocalStorage,
+  retrieveLocalStorage,
+} from "./local_storage";
 
-loadAllMenuProjects();
+// console.log(retrieveInboxStorage());
 
-projects.subscribe("add", loadNewMenuProject);
 projects.subscribe("add", closeProjectDialog);
 projects.subscribe("add", loadNewProject);
 projects.subscribe("add", subscribeProjects);
+projects.subscribe("add", addToLocalStorage);
 projects.subscribe("remove", deleteProjectElement);
+projects.subscribe("remove", removeFromLocalStorage);
 
 inbox.subscribe("add", loadNewTodo);
 inbox.subscribe("add", closeDialog);
+inbox.subscribe("add", addToLocalStorage);
 inbox.subscribe("update", closeEditDialog);
 inbox.subscribe("update", editTodoElement);
 inbox.subscribe("remove", deleteTodoElement);
+inbox.subscribe("remove", removeFromLocalStorage);
 
-// TODO: fix the delete project function such that when the project is deleted it's entry in projectTitles array is also removed
+retrieveLocalStorage();
+consumeLocalStorage();
+loadAllMenuProjects();
+
+projects.subscribe("add", loadNewMenuProject);
+
+// TODO: give functionality to sidebar links
 // look into date-fns
 // clear form after submission
-// give functionality to sidebar links
 // figure out local storage
 
 // <-| Here for reference to be deleted at later time |->
