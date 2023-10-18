@@ -124,14 +124,21 @@ export function projectFormValidator() {
 
 export const loadNewMenuProject = () => {
   const option = document.createElement("option");
+  option.id = projectTitles[projectTitles.length - 1];
   option.value = projectTitles[projectTitles.length - 1];
   option.textContent = projectTitles[projectTitles.length - 1];
   project.appendChild(option);
 };
 
+export const deleteMenuProject = ({ data }) => {
+  const option = document.getElementById(data.title);
+  project.removeChild(option);
+};
+
 export const loadAllMenuProjects = () => {
   projectTitles.forEach((proj) => {
     const option = document.createElement("option");
+    option.id = proj;
     option.value = proj;
     option.textContent = proj;
     project.appendChild(option);

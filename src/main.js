@@ -3,6 +3,7 @@ import {
   closeDialog,
   closeEditDialog,
   closeProjectDialog,
+  deleteMenuProject,
   deleteProjectElement,
   deleteTodoElement,
   editTodoElement,
@@ -26,6 +27,7 @@ projects.subscribe("add", loadNewProject);
 projects.subscribe("add", subscribeProjects);
 projects.subscribe("add", addToLocalStorage);
 projects.subscribe("remove", deleteProjectElement);
+projects.subscribe("remove", deleteMenuProject);
 projects.subscribe("remove", removeFromLocalStorage);
 
 inbox.subscribe("add", loadNewTodo);
