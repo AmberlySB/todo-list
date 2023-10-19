@@ -12,8 +12,8 @@ const addTodo = document.getElementById("add-todo");
 const dialog = document.getElementById("dialog");
 const cancel = document.getElementById("cancel");
 const editCancel = document.getElementById("editCancel");
-const addTaskForm = document.getElementById("form");
-const editTaskForm = document.getElementById("editForm");
+export const addTaskForm = document.getElementById("form");
+export const editTaskForm = document.getElementById("editForm");
 const project = document.getElementById("project");
 const todoList = document.getElementById("todoList");
 const todoTemplate =
@@ -22,13 +22,12 @@ const editDialog = document.getElementById("editDialog");
 const menu = document.getElementById("menu");
 const sideBar = document.getElementById("sideBar");
 const content = document.getElementById("content");
-const projectForm = document.getElementById("projectForm");
+export const projectForm = document.getElementById("projectForm");
 const projectDialog = document.getElementById("projectDialog");
 const addProject = document.getElementById("addProject");
 const projectCancelBtn = document.getElementById("projectCancelBtn");
 const projectWrapper = document.getElementById("projectWrapper");
 const title = document.getElementById("title");
-const inboxLink = document.getElementById(".inboxLink");
 const inboxDiv = document.querySelector(".inboxDiv");
 
 export let editId;
@@ -95,7 +94,6 @@ cancel.addEventListener("click", closeDialog);
 
 const openEditDialog = (event) => {
   editId = event.target.parentElement.parentElement.parentElement.id;
-  console.log(editId);
   editDialog.showModal();
 };
 
@@ -223,7 +221,6 @@ export const editTodoElement = ({ data }) => {
   const dueDate = todoElement.querySelector(".dueDate");
   const priority = todoElement.querySelector(".priority");
 
-  console.log(data);
   taskName.textContent = data.taskName;
 
   if (data.description === "") {

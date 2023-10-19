@@ -5,6 +5,7 @@ import {
   deleteTodoElement,
   editTodoElement,
   loadNewTodo,
+  projectForm,
   projectFormValidator,
 } from "./dom";
 import { addToLocalStorage } from "./local_storage";
@@ -27,10 +28,8 @@ export function addNewProject(event) {
   let newProject = newProjectName.toLowerCase();
   newProject = Collection(newProjectName);
   projectReferences.push(newProject);
-  console.log("refs: ", projectReferences);
   projects.add(newProject);
-  console.log("projects :", projects.findAll());
-  console.log(projectTitles);
+  projectForm.reset();
 }
 
 export const deleteProject = (event) => {
@@ -38,7 +37,6 @@ export const deleteProject = (event) => {
   projectTitles = projectTitles.filter(
     (title) => title !== event.target.previousSibling.textContent,
   );
-  console.log(projectTitles);
   projects.remove(projectDeleteId);
 };
 
@@ -73,7 +71,9 @@ export const subscribeProjects = () => {
   projectReferences.slice(1).forEach((project) => {
     project.subscribe("add", closeDialog);
     project.subscribe("add", addToLocalStorage);
+    project.subscribe("update", addToLocalStorage);
     project.subscribe("update", closeEditDialog);
+    project.subscribe("remove", addToLocalStorage);
   });
 };
 

@@ -10,15 +10,12 @@ export const Collection = (title = "default Collection", _id = uuid()) => {
     observers.add?.forEach((observerFunc) =>
       observerFunc(thing, { _id, title, collection: [...stuff] }),
     );
-    console.table("add stuff: ", stuff);
     return thing;
   };
 
   const remove = (id) => {
-    console.table("before remove: ", stuff);
     const thing = findById(id);
     stuff = stuff.filter((thing) => thing._id != id);
-    console.table("after remove: ", stuff);
     observers.remove?.forEach((observerFunc) =>
       observerFunc(thing, { _id, title, collection: [...stuff] }),
     );
@@ -31,7 +28,6 @@ export const Collection = (title = "default Collection", _id = uuid()) => {
   const findAll = () => [...stuff];
 
   const update = (id, updateFunc) => {
-    console.table("stuff: ", stuff);
     stuff = stuff.map((thing) =>
       thing._id === id
         ? Object.freeze({ _id: thing._id, data: updateFunc(thing.data) })
@@ -41,7 +37,6 @@ export const Collection = (title = "default Collection", _id = uuid()) => {
     observers.update?.forEach((observerFunc) =>
       observerFunc(thing, { _id, title, collection: [...stuff] }),
     );
-    console.table("updated stuff: ", stuff);
     return findById(id);
   };
 
@@ -50,8 +45,6 @@ export const Collection = (title = "default Collection", _id = uuid()) => {
       observers[action] = [];
     }
     observers[action].push(oberverFunc);
-    console.table(observers);
-    console.table(observers[action]);
   };
 
   const unsubscribe = (action, observerFunc) => {
@@ -59,6 +52,16 @@ export const Collection = (title = "default Collection", _id = uuid()) => {
       (func) => func !== observerFunc,
     );
   };
+
+  const toJSON = () =>
+    JSON.stringify({
+      _id,
+      title,
+      collection: findAll().map(({ _id, data }) => ({
+        _id,
+        data: data,
+      })),
+    });
 
   return {
     get _id() {
@@ -75,5 +78,6 @@ export const Collection = (title = "default Collection", _id = uuid()) => {
     update,
     subscribe,
     unsubscribe,
+    toJSON,
   };
 };

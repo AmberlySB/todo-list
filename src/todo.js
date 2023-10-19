@@ -1,5 +1,5 @@
 import { projectTitles, projectReferences } from "./projects";
-import { activeProject, editId } from "./dom";
+import { activeProject, addTaskForm, editId, editTaskForm } from "./dom";
 
 export let deleteId;
 
@@ -34,6 +34,7 @@ export function newTask(event) {
   if (projectTitles.includes(projectValue)) {
     projectReferences[projectTitles.indexOf(projectValue)].add(newTodo);
   }
+  addTaskForm.reset();
 }
 
 export function editTask(event) {
@@ -42,7 +43,6 @@ export function editTask(event) {
   const editDescription = this.editDescription.value;
   const editDueDate = this.editDueDate.value;
   const editPriority = this.editPriority.value;
-  console.log(event.target);
   if (projectTitles.includes(activeProject)) {
     projectReferences[projectTitles.indexOf(activeProject)].update(
       editId,
@@ -55,6 +55,7 @@ export function editTask(event) {
       }),
     );
   }
+  editTaskForm.reset();
 }
 
 export const deleteTask = (event) => {
