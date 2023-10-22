@@ -1,5 +1,5 @@
-import { projectTitles, projectReferences } from "./projects";
 import { activeProject, addTaskForm, editId, editTaskForm } from "./dom";
+import { projectReferences, projectTitles } from "./projects";
 
 export let deleteId;
 

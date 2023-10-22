@@ -1,4 +1,3 @@
-import "./style.css";
 import {
   closeDialog,
   closeEditDialog,
@@ -12,8 +11,9 @@ import {
   loadNewProject,
   loadNewTodo,
 } from "./dom";
-import { projects, inbox, subscribeProjects } from "./projects";
 import { addToLocalStorage, retrieveLocalStorage } from "./local_storage";
+import { inbox, projects, subscribeProjects } from "./projects";
+import "./style.css";
 
 projects.subscribe("add", closeProjectDialog);
 projects.subscribe("add", loadNewProject);

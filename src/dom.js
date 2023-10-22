@@ -1,12 +1,12 @@
-import { newTask, editTask, deleteTask, deleteId, completeTask } from "./todo";
 import {
-  projectTitles,
   addNewProject,
-  swapSubs,
-  projects,
   deleteProject,
   projectDeleteId,
+  projectTitles,
+  projects,
+  swapSubs,
 } from "./projects";
+import { completeTask, deleteId, deleteTask, editTask, newTask } from "./todo";
 
 const addTodo = document.getElementById("add-todo");
 const dialog = document.getElementById("dialog");
